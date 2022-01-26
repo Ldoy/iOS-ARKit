@@ -11,7 +11,7 @@ import SceneKit
 import ARKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
-
+    
     @IBOutlet var sceneView: ARSCNView!
     
     override func viewDidLoad() {
@@ -25,8 +25,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // 디버그 해주는 기능
         sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin,
-                                ARSCNDebugOptions.showFeaturePoints]
+                                  ARSCNDebugOptions.showFeaturePoints]
         sceneView.autoenablesDefaultLighting = true
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,10 +35,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
-
+        
         // Run the view's session
         sceneView.session.run(configuration)
         drawSphereAtOrigin()
+        drawBox1200High()
+        drawPyramid0600Low()
+        drawCatAt900()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -46,16 +50,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Pause the view's session
         sceneView.session.pause()
     }
-
-  func drawSphereAtOrigin() {
-      //SCNNode : 3d오브젝트
-    let sphere = SCNNode(geometry: SCNSphere(radius: 0.05))
-    sphere.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
-      //SCNVector3 : 물체(노드)의 위치를 가운데에 두겠다는 것
-    sphere.position = SCNVector3(0, 0, 0)
-      //현재 노드가 하나도 없기 때문에 루트 노드에 추가해야함
-    sceneView.scene.rootNode.addChildNode(sphere)
-  }
+    
+    func drawSphereAtOrigin() {
+        //SCNNode : 3d오브젝트
+        let sphere = SCNNode(geometry: SCNSphere(radius: 0.05))
+        //sphere.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+        sphere.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "earth")
+        sphere.geometry?.firstMaterial?.specular.contents = UIColor.yellow
+        //SCNVector3 : 물체(노드)의 위치를 가운데에 두겠다는 것
+        sphere.position = SCNVector3(0, 0, 0)
+        //현재 노드가 하나도 없기 때문에 루트 노드에 추가해야함
+        sceneView.scene.rootNode.addChildNode(sphere)
+    }
     
     func drawBox1200High() {
         let box = SCNNode(geometry: SCNBox(width: 0.2,
@@ -69,17 +75,50 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         sceneView.scene.rootNode.addChildNode(box)
     }
+    
+    func drawPyramid0600Low() {
+        let pyramid = SCNNode(geometry: SCNPyramid(width: 0.1,
+                                                   height: 0.1,
+                                                   length: 0.1))
+        pyramid.position = SCNVector3(0, -0.2, 0.3)
+        pyramid.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGreen
+        pyramid.geometry?.firstMaterial?.diffuse.contents = UIColor.systemRed
+        
+        sceneView.scene.rootNode.addChildNode(pyramid)
+    }
+    
+    func drawCatAt900() {
+        let catPicture = SCNNode(geometry: SCNPlane(width: 0.1,
+                                                    height: 0.1))
+        catPicture.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "cat")
+        catPicture.position = SCNVector3(-0.2, 0, 0)
+        catPicture.geometry?.firstMaterial?.isDoubleSided = true
+        sceneView.scene.rootNode.addChildNode(catPicture)
+    }
+    
+    func drawTubeAt300() {
+        let tube = SCNNode(geometry: SCNTorus(ringRadius: 0.05,
+                                              pipeRadius: 0.03))
+        tube.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        tube.geometry?.firstMaterial?.specular.contents = UIColor.yellow
+        
+        tube.position = SCNVector3(0.2, 0, 0)
+        
+        // 45도 회전시키기 (z기준)
+        tube.eulerAngles = SCNVector3(0, 0, 45.floatToRadius())
+        sceneView.scene.rootNode.addChildNode(tube)
 
+    }
     // MARK: - ARSCNViewDelegate
     
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
+    /*
+     // Override to create and configure nodes for anchors added to the view's session.
+     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
+     let node = SCNNode()
      
-        return node
-    }
-*/
+     return node
+     }
+     */
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
@@ -96,3 +135,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
     }
 }
+
+extension Int {
+    func floatToRadius() -> CGFloat {
+        return CGFloat(self) * CGFloat.pi / 100.0
+    }
+}
+ 
