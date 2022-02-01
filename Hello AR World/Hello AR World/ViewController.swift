@@ -62,7 +62,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         ship.scale = SCNVector3(0.3, 0.3, 0.3)
         ship.eulerAngles = SCNVector3(0, 100.floatToRadius(), 0)
         sphere.addChildNode(ship)
-        
     }
     
     func drawSphereAtOrigin() {
