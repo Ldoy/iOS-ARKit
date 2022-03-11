@@ -105,24 +105,39 @@ class CanvasViewController: UIViewController, ARSCNViewDelegate {
                 willRenderScene scene: SCNScene,
                 atTime time: TimeInterval) {
     // A canvas‘ pointOfView is a node representing the camera‘s point of view.
+    
+    //1. pointOfView(현재위치)가져오기 : canvas(ARSCNView)에 존재, transform matrix에 대한 정보를 가지고 있음
     guard let pointOfView = canvas.pointOfView else { return }
-
-    // Get the device’s location, orientation, and position
-    // The current location and orientaton of the camera relative to the origin point
-    // are embedded in the pointOfView’s transformation matrix (a 4 by 4 matrix).
+    
+    //2. transform 정보 가져오기 : pointOfView의 transform 가져오기
     let transform = pointOfView.transform
-
-    // The orientation is in the 3rd column of the transform matrix.
-    let orientation = SCNVector3(-transform.m31,
-                                 -transform.m32,
-                                 -transform.m33)
-
-    // The location is in the 4th column of the transform matrix.
+    
+    //3. orientation, location 가져오기 : 4번째 행의 1,2,3번째 값을 vector로 표현 (m 값으로 가져오기 (ex : m31 - 3번째 행의 1번째 값을 의미))
+    
     let location = SCNVector3(transform.m41,
                               transform.m42,
                               transform.m43)
-    let position = orientation + location
-    print("location: \(location)\norientation: \(orientation)")
+    let orientation = SCNVector3(-transform.m31,
+                                 -transform.m32,
+                                 -transform.m33)
+    //location, orientation을가지고 position만들 수 있음
+    
+    
+    let position = location + orientation
+    print("orientation: \"\(orientation)\"")
+  
+        
+    //4. position 가져오기 : oreientation과 location을 더함(???왜?)
+    
+    // Get the device’s location, orientation, and position
+    // The current location and orientaton of the camera relative to the origin point
+    // are embedded in the pointOfView’s transformation matrix (a 4 by 4 matrix).
+
+    // The orientation is in the 3rd column of the transform matrix.
+   
+
+    // The location is in the 4th column of the transform matrix.
+ 
 
     // By putting this code in a “DispatchQueue.main.async” block,
     // we ensure that this code gets executed in the main queue.

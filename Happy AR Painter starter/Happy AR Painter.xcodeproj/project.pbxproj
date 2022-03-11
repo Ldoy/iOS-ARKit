@@ -281,10 +281,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = EFL9LXPU8S;
+				DEVELOPMENT_TEAM = 7MJ69FU8BU;
 				INFOPLIST_FILE = "$(SRCROOT)/Happy AR Painter/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.razeware.Happy-AR-Painter";
+				PRODUCT_BUNDLE_IDENTIFIER = "leedoy-gmail.com";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -297,10 +297,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = EFL9LXPU8S;
+				DEVELOPMENT_TEAM = 7MJ69FU8BU;
 				INFOPLIST_FILE = "$(SRCROOT)/Happy AR Painter/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.razeware.Happy-AR-Painter";
+				PRODUCT_BUNDLE_IDENTIFIER = "leedoy-gmail.com";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
